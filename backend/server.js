@@ -30,7 +30,17 @@ io.on("connection", (socket) => {
 })
 // Middleware
 app.use(express.json({ limit: '4mb' }))
-app.use(cors())
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://real-time-chat-app-steel-nine.vercel.app",
+  "https://real-time-chat-87a72imfa-deeps-projects-84235818.vercel.app"
+]
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}))
 
 // Routes
 app.get('/', (req, res) => res.send('mein hu khanlyanak'))
