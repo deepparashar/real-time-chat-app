@@ -1,4 +1,3 @@
-// index.js
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
@@ -17,8 +16,14 @@ app.get('/', (req, res) => res.send('mein hu khanlyanak'))
 app.use('/api/auth/', router)
 app.use('/api/messages/', Messagerouter)
 
-// DB Connect
-await connectDB()
-
-// ✅ Export app for Vercel
 export default app
+
+// Connect DB (wrapped in async IIFE to avoid top-level await error on Vercel)
+;(async () => {
+  try {
+    await connectDB()
+    console.log("MongoDB connected")
+  } catch (err) {
+    console.error("DB connection failed:", err)
+  }
+})()
