@@ -1,7 +1,7 @@
 import Message from "../models/Message.js";
 import User from "../models/User.js";
 import cloudinary from '../config/cloudinary.js'
-import {io, userSocketMap} from '../server.js'
+import {io, userSocketMap} from '../dev-server.js'
 
 
 // Get all users except the logged in user
