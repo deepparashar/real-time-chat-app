@@ -2,15 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Real-time chat app backend",
-  "main": "dev-server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node dev-server.js"
+    "start": "server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@railway/cli": "^4.5.2",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.1",
     "cors": "^2.8.5",
