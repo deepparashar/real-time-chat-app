@@ -4,8 +4,6 @@ import help_icon from './help_icon.png'
 import logo_icon from './logo_icon.svg'
 import logo_big from './logo_big.svg'
 import logo from './logo.png'
-import Logo from './logo2.png'
-import Logoo from './logo3.png'
 import profile_richard from './profile_richard.png'
 import profile_alison from './profile_alison.png'
 import profile_enrique from './profile_enrique.png'
@@ -39,8 +37,8 @@ const assets = {
     code,
     bgImage,
     profile_martin,
-    Logo,
-    Logoo,
+    // Logo,
+    // Logoo,
     Logo1
 }
 
