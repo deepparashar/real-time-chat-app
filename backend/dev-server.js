@@ -1,8 +1,11 @@
 // dev-server.js
 import http from 'http'
 import { Server } from 'socket.io'
-import app from './server.js'
+import {app} from './server.js'
 import 'dotenv/config'
+
+// No need to log app unless you're debugging:
+// console.log(app) — remove or move it **after** import block
 
 // Create HTTP server
 const server = http.createServer(app)
