@@ -1,59 +1,56 @@
-// server.js
-import express from 'express'
-import cors from 'cors'
-import 'dotenv/config'
-import http from 'http'
-import { Server } from 'socket.io'
-import { connectDB } from './config/db.js'
-import router from './routes/userRoutes.js'
-import Messagerouter from './routes/messageRoutes.js'
+import express from 'express';
+import cors from 'cors';
+import 'dotenv/config';
+import http from 'http';
+import { Server } from 'socket.io';
+import { connectDB } from './config/db.js';
+import router from './routes/userRoutes.js';
+import Messagerouter from './routes/messageRoutes.js';
 
- const app = express()
-const server = http.createServer(app)
+const app = express();
+const server = http.createServer(app);
+
+// Configure CORS to allow requests from your frontend origin
+const corsOptions = {
+  origin: 'https://real-time-chat-app-steel-nine.vercel.app',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '4mb' }));
 
 export const io = new Server(server, {
-  cors: { origin: "*" }
-})
+  cors: {
+    origin: 'https://real-time-chat-app-steel-nine.vercel.app',
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
 
-export const userSocketMap = {}
+export const userSocketMap = {};
 
-io.on("connection", (socket) => {
-  const userId = socket.handshake.query.userId
-  if (userId) userSocketMap[userId] = socket.id
+io.on('connection', (socket) => {
+  const userId = socket.handshake.query.userId;
+  if (userId) userSocketMap[userId] = socket.id;
 
-  io.emit("getOnlineUsers", Object.keys(userSocketMap))
+  io.emit('getOnlineUsers', Object.keys(userSocketMap));
 
-  socket.on("disconnect", () => {
-    delete userSocketMap[userId]
-    io.emit("getOnlineUsers", Object.keys(userSocketMap))
-  })
-})
-// Middleware
-app.use(express.json({ limit: '4mb' }))
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://real-time-chat-app-steel-nine.vercel.app",
-  "https://real-time-chat-87a72imfa-deeps-projects-84235818.vercel.app"
-]
-
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}))
+  socket.on('disconnect', () => {
+    delete userSocketMap[userId];
+    io.emit('getOnlineUsers', Object.keys(userSocketMap));
+  });
+});
 
 // Routes
-app.get('/', (req, res) => res.send('mein hu khanlyanak'))
-app.use('/api/auth/', router)
-app.use('/api/messages/', Messagerouter)
+app.get('/', (req, res) => res.send('mein hu khanlyanak'));
+app.use('/api/auth/', router);
+app.use('/api/messages/', Messagerouter);
 
-await connectDB()
+await connectDB();
 
-if(process.env.NODE_ENV !== 'production'){
-    const PORT = process.env.PORT || 4001
-    server.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`)
-    })
-}
+const PORT = process.env.PORT || 4001;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 export default server;
