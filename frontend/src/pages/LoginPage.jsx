@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import AuthImagePattern from '../components/AuthImagePattern'
 import assets from '../assets/assets'
-import {ArrowBigLeft,ArrowBigLeftDashIcon} from 'lucide-react'
+import {ArrowBigLeftDashIcon} from 'lucide-react'
 import { AuthContext } from '../context/AuthContext'
 
 const LoginPage = () => {

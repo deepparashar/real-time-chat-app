@@ -97,13 +97,3 @@ export async function updateProfile (req,res) {
 }
 
 //Function for logout the user
-
-export async function logout (req,res) {
-    try {
-
-
-        
-    } catch (error) {
-        res.json({success:true, message:error.message})
-    }
-}
